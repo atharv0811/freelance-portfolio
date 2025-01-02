@@ -20,7 +20,7 @@ const items = [
     },
     {
         title: "Add Blog",
-        url: "/admin/create",
+        url: "/admin/add",
         icon: Plus,
     }
 ]
