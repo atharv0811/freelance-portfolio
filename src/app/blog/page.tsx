@@ -4,7 +4,7 @@ import { useState } from 'react'
 import BlogList from './_components/blog-list'
 import Sidebar from './_components/sidebar'
 
-export default function Home() {
+export default function Blog() {
     const [searchQuery, setSearchQuery] = useState('')
 
     const handleSearch = (query: string) => {
