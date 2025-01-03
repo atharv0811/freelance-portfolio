@@ -39,7 +39,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
             StarterKit.configure({
                 heading: {
                     levels: [1, 2, 3]
-                },
+                }
             }),
             Underline,
             CodeBlockLowlight.configure({
@@ -144,6 +144,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
         <div className="w-full">
             <div className="space-x-1 mb-2">
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleBold().run()}
@@ -152,6 +153,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Bold />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -160,6 +162,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Italic />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -168,6 +171,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <UnderlineIcon />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -176,6 +180,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Strikethrough />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -184,6 +189,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Heading1 />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -192,6 +198,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Heading2 />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
@@ -200,6 +207,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Heading3 />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -208,6 +216,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <List />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -216,6 +225,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <ListOrdered />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleBlockquote().run()}
@@ -224,6 +234,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Quote />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={toggleLink}
@@ -232,6 +243,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <LinkIcon />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleCodeBlock().run()}
@@ -240,6 +252,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Code />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().undo().run()}
@@ -248,6 +261,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
                     <Undo />
                 </Button>
                 <Button
+                    type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => editor.chain().focus().redo().run()}
