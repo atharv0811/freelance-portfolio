@@ -26,7 +26,6 @@ import {
 } from "lucide-react";
 
 interface TiptapEditorProps {
-    content: string;
     onChange: (content: string) => void;
 }
 
@@ -34,7 +33,7 @@ const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
 const lowlight = createLowlight(all)
 
-const Tiptap: React.FC<TiptapEditorProps> = ({ content, onChange }) => {
+const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -87,6 +86,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ content, onChange }) => {
                         // all checks have passed
                         return true
                     } catch (error) {
+                        console.log(error);
                         return false
                     }
                 },
@@ -101,6 +101,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ content, onChange }) => {
 
                         return !disallowedDomains.includes(domain)
                     } catch (error) {
+                        console.log(error);
                         return false
                     }
                 },

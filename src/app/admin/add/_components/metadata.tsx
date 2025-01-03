@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BlogFormData } from "@/schemas/blog-schema";
 import { Tag } from "lucide-react"
+import Image from "next/image";
 import { useState } from "react";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 
@@ -167,7 +168,9 @@ const Metadata: React.FC<MetadataProps> = ({ form }) => {
                             <FormMessage />
                             {previewImage && (
                                 <div className="mt-3">
-                                    <img
+                                    <Image
+                                        width={400}
+                                        height={400}
                                         src={previewImage}
                                         alt="Cover Preview"
                                         className="rounded-md max-w-full h-auto"
