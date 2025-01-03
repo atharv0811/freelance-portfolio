@@ -3,6 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { BlogFormData } from "@/schemas/blog-schema";
 import { FileText } from "lucide-react"
 import { UseFormReturn } from "react-hook-form";
+import Tiptap from "./Tiptap";
 
 interface MetadataProps {
     form: UseFormReturn<BlogFormData>;
@@ -23,7 +24,11 @@ const Content: React.FC<MetadataProps> = ({ form }) => {
                     <FormItem>
                         <FormLabel>Content</FormLabel>
                         <FormControl>
-                            <Textarea className="resize-none" {...field} rows={15} />
+                            {/* <Textarea className="resize-none" {...field} rows={15} /> */}
+                            <Tiptap
+                                content={field.value}
+                                onChange={field.onChange}
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
