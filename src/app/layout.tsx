@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import UpperNavbar from "@/components/upper-navbar";
-import Navbar from "@/components/navbar";
-import ScrollToTop from "@/components/scroll-to-top";
 import ConditionalLayout from "@/components/conditional-layout";
 
 const roboto = Roboto({ weight: '700', subsets: ['latin'] })
