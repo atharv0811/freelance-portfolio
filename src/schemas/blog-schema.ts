@@ -8,6 +8,8 @@ export const blogFormSchema = z.object({
         .max(200, "Description is too long"),
     content: z.string().min(1, "Content is required"),
     keywords: z.array(z.string()).min(1, "At least one keyword is required"),
+    tags: z.array(z.string()).min(1, 'At least one tag is required'),
+    category: z.string().min(1, 'Category is required'),
     slug: z
         .string()
         .min(1, "Slug is required")

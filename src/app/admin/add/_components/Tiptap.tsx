@@ -39,7 +39,8 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
             StarterKit.configure({
                 heading: {
                     levels: [1, 2, 3]
-                }
+                },
+                codeBlock: false
             }),
             Underline,
             CodeBlockLowlight.configure({
@@ -109,6 +110,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
             })
         ],
         content: ``,
+        immediatelyRender: false,
         onUpdate: ({ editor }) => {
             const updatedContent = editor.getHTML();
             onChange(updatedContent);
@@ -142,7 +144,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
 
     return (
         <div className="w-full">
-            <div className="space-x-1 mb-2">
+            <div className="flex flex-wrap gap-2 mb-2 justify-start">
                 <Button
                     type="button"
                     variant="outline"

@@ -6,8 +6,8 @@ import { Save } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { BlogFormData, blogFormSchema } from "@/schemas/blog-schema";
-import Metadata from "./_components/metadata";
 import { Button } from "@/components/ui/button";
+import Metadata from "./_components/metadata";
 import Content from "./_components/content";
 import PublishSection from "./_components/publish-section";
 
@@ -16,6 +16,8 @@ const initialFormData: BlogFormData = {
     description: '',
     content: '',
     keywords: [],
+    tags: [],
+    category: '',
     slug: '',
     coverImage: '',
     publishDate: new Date().toISOString().split('T')[0],
@@ -44,7 +46,7 @@ const AddPost = () => {
                     <div className="flex justify-end items-center mt-4">
                         <Button
                             type="submit"
-                            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm cursor-pointer"
+                            className="flex items-center gap-2 px-6 py-2.5 bg-[#6930c3] text-white rounded-lg hover:bg-[#471794] transition-colors shadow-sm cursor-pointer"
                         >
                             <Save size={20} />
                             Publish Post

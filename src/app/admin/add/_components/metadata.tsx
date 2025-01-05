@@ -3,10 +3,10 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BlogFormData } from "@/schemas/blog-schema";
-import { Tag } from "lucide-react"
-import Image from "next/image";
+import { Tag, X } from "lucide-react"
 import { useState } from "react";
 import { useFormContext, UseFormReturn } from "react-hook-form";
+import Image from "next/image";
 
 interface MetadataProps {
     form: UseFormReturn<BlogFormData>;
@@ -141,7 +141,7 @@ const Metadata: React.FC<MetadataProps> = ({ form }) => {
                                                     onClick={() => removeKeyword(keyword)}
                                                     className="ml-2 text-indigo-600 hover:text-indigo-800"
                                                 >
-                                                    ×
+                                                    <X size={15} />
                                                 </button>
                                             </span>
                                         ))}
