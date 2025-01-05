@@ -5,6 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import * as z from 'zod'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+import { toast } from 'sonner'
 import {
     Form,
     FormControl,
@@ -13,24 +18,46 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Loader2 } from 'lucide-react'
 
 const formSchema = z.object({
-    email: z.string().email('Invalid email address'),
+    identifier: z.string().email('Invalid email address'),
     password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 const AdminLoginForm = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const router = useRouter()
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: '',
+            identifier: '',
             password: '',
         },
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setIsSubmitting(true)
 
+        const result = await signIn('credentials', {
+            redirect: false,
+            identifier: data.identifier,
+            password: data.password
+        })
+
+        if (result?.error) {
+            toast.error('Internal server error')
+        }
+
+        toast.success('Login Success')
+
+        if (result?.ok) {
+            router.replace('/admin')
+        }
+
+        setIsSubmitting(false)
     }
 
     return (
@@ -43,7 +70,7 @@ const AdminLoginForm = () => {
                     <CardContent className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="email"
+                            name="identifier"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
@@ -72,10 +99,16 @@ const AdminLoginForm = () => {
                         <Button
                             className="w-full"
                             type="submit"
-                        //    disabled={isLoading}
+                            disabled={isSubmitting}
                         >
-                            {/* {isLoading ? 'Logging in...' : 'Login'} */}
-                            Login
+                            {
+                                isSubmitting ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Please wait...
+                                    </>
+                                ) : ('Login')
+                            }
                         </Button>
                     </CardFooter>
                 </form>

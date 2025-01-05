@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import ConditionalLayout from "@/components/conditional-layout";
+import AuthProvider from "@/context/AuthProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const roboto = Roboto({ weight: '700', subsets: ['latin'] })
 
@@ -20,15 +22,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${roboto.className}`}
-        data-new-gr-c-s-check-loaded="14.1215.0"
-        data-gr-ext-installed=""
-      >
-        <ConditionalLayout>
-          {children}
-        </ConditionalLayout>
-      </body>
+      <AuthProvider>
+        <body
+          className={`${roboto.className}`}
+          data-new-gr-c-s-check-loaded="14.1215.0"
+          data-gr-ext-installed=""
+        >
+          <ConditionalLayout>
+            {children}
+            <Toaster />
+          </ConditionalLayout>
+        </body>
+      </AuthProvider>
     </html>
   );
 }
