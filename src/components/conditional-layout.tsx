@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
-    const isAdmin = pathname.startsWith('/admin')
+    const isAdmin = pathname.startsWith('/admin') || pathname.startsWith('/auth')
 
     return (
         <>
