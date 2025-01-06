@@ -13,16 +13,19 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize(credentials: any): Promise<any> {
+            async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<any> {
                 await dbConnect();
 
                 try {
-                    const user = await User.findOne({ email: credentials.identifier })
+                    const user = await User.findOne({ email: credentials?.email })
 
                     if (!user) {
                         throw new Error('No user found with this email')
                     }
 
+                    if (!credentials) {
+                        throw new Error('Credentials are missing');
+                    }
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password)
 
                     if (isPasswordCorrect) {
