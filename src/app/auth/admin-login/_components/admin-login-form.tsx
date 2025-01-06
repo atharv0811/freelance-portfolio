@@ -48,15 +48,11 @@ const AdminLoginForm = () => {
         })
 
         if (result?.error) {
-            toast.error('Internal server error')
+            toast.error(result.error)
         }
 
         toast.success('Login Success')
-
-        if (result?.ok) {
-            router.replace('/admin')
-        }
-
+        router.replace('/admin')
         setIsSubmitting(false)
     }
 

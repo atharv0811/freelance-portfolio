@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs';
 import dbConnect from "@/lib/dbConnect";
-import User from "@/models/User";
+import User from "@/models/user.model";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -26,12 +26,11 @@ export const authOptions: NextAuthOptions = {
 
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password)
 
-                    if (isPasswordCorrect) {
-                        return user;
-                    }
-                    else {
+                    if (!isPasswordCorrect) {
                         throw new Error('Incorrect Password')
                     }
+
+                    return user;
 
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 } catch (error: any) {
