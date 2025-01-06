@@ -1,5 +1,4 @@
 import { Types } from "mongoose";
-import { IComment } from "./comments";
 
 export interface IUser extends Document {
     name: string;
