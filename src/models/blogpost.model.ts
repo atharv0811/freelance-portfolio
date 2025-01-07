@@ -64,6 +64,10 @@ const blogPostsSchema: Schema<IBlogPost> = new Schema(
             required: true,
             default: false,
         },
+        readTime: {
+            type: String,
+            required: true,
+        },
         views: {
             type: Number,
             default: 0

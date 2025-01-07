@@ -18,6 +18,7 @@ export interface IBlogPost extends Document {
     coverImage?: string;
     publishDate: string;
     isDraft: boolean;
+    readTime: string;
     views: number;
     likes: number;
     createdAt?: Date;

@@ -1,19 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import Link from 'next/link'
 import { CalendarIcon, ClockIcon } from 'lucide-react'
 import { FC } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 interface BlogPost {
     id: number
     title: string
-    excerpt: string
-    date: string
+    description: string
+    publishDate: string
     category: string
     readTime: string
 }
 
-const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
+const BlogCard: FC<{ post: BlogPost; author: string }> = ({ post, author }) => {
     return (
         <Card className="overflow-hidden transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-4">
@@ -23,22 +24,28 @@ const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
                     </Badge>
                     <div className="flex items-center text-sm text-gray-500">
                         <ClockIcon className="w-4 h-4 mr-1" />
-                        {post.readTime}
+                        {post.readTime} min read
                     </div>
                 </div>
                 <CardTitle className="text-2xl font-bold">
-                    <Link href={`/blog/${post.id}`} className="hover:underline">
-                        {post.title}
-                    </Link>
+                    {post.title}
                 </CardTitle>
+                <CardDescription className='flex items-center gap-4'>
+                    <p className="text-gray-600">{author}</p>
+                    <div className="flex items-center text-sm text-gray-500">
+                        <CalendarIcon className="w-4 h-4 mr-1" />
+                        <time dateTime={post.publishDate}>Published on {post.publishDate}</time>
+                    </div>
+                </CardDescription>
             </CardHeader>
             <CardContent>
-                <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <div className="flex items-center text-sm text-gray-500">
-                    <CalendarIcon className="w-4 h-4 mr-1" />
-                    <time dateTime={post.date}>Published on {post.date}</time>
-                </div>
+                <p>{post.description}</p>
             </CardContent>
+            <CardFooter>
+                <Link href={`/blog/${post.id}`} className="group">
+                    <Button className='group-hover:underline group-hover:bg-[#401585] bg-[#6930c3]'>Read more</Button>
+                </Link>
+            </CardFooter>
         </Card>
     )
 }

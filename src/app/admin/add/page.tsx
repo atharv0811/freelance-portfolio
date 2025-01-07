@@ -25,6 +25,7 @@ const initialFormData: BlogFormData = {
     coverImage: '',
     publishDate: new Date().toISOString().split('T')[0],
     isDraft: true,
+    readTime: '1',
 };
 
 const AddPost = () => {

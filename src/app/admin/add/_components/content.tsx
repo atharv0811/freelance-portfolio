@@ -141,6 +141,19 @@ const Content: React.FC<MetadataProps> = ({ form }) => {
                     </FormItem>
                 )}
             />
+            <FormField
+                control={form.control}
+                name="readTime"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Read Time (in min)</FormLabel>
+                        <FormControl>
+                            <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
         </div>
     );
 };

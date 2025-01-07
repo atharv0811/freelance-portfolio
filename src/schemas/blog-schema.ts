@@ -17,6 +17,7 @@ export const blogFormSchema = z.object({
     coverImage: z.string().url("Invalid URL").optional(),
     publishDate: z.string(),
     isDraft: z.boolean(),
+    readTime: z.string().min(1, 'Read time is required'),
 });
 
 export type BlogFormData = z.infer<typeof blogFormSchema>;

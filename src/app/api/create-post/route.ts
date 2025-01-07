@@ -22,9 +22,9 @@ export async function POST(req: Request) {
             );
         }
 
-        const { title, description, content, keywords, tags, category, slug, coverImage, publishDate, isDraft, } = await req.json();
+        const { title, description, content, keywords, tags, category, slug, coverImage, publishDate, isDraft, readTime } = await req.json();
 
-        if (!title || !description || !content || !keywords || !tags || !category || !slug || !coverImage || !publishDate) {
+        if (!title || !description || !content || !keywords || !tags || !category || !slug || !coverImage || !publishDate || !readTime) {
             return NextResponse.json(
                 {
                     success: false,
@@ -62,6 +62,7 @@ export async function POST(req: Request) {
             coverImage,
             publishDate,
             isDraft,
+            readTime
         });
 
         await post.save();
