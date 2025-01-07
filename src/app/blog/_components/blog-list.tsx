@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import BlogCard from "./blog-card";
 import axios from "axios";
+import PaginationComponent from "./pagination-component";
 
 export default function BlogList({ searchQuery }: { searchQuery: string }) {
     const [blogPosts, setBlogPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 5;
 
     const fetchBlogPosts = async () => {
         try {
@@ -32,6 +35,13 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
             post.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    // Calculate posts for the current page
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const currentPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
+
+    // Total pages
+    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
     return (
         <div className="space-y-8">
             <h2 className="text-3xl font-bold mb-6 text-[#6930c3]">
@@ -46,10 +56,19 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
                     No posts found matching your search criteria.
                 </p>
             ) : (
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                filteredPosts.map((post: any) => (
-                    <BlogCard key={post._id} post={post} author={post.author.name} />
-                ))
+                <>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {currentPosts.map((post: any) => (
+                        <BlogCard key={post._id} post={post} author={post.author.name} />
+                    ))}
+                    <div className="mt-6 flex justify-center">
+                        <PaginationComponent
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={(page) => setCurrentPage(page)}
+                        />
+                    </div>
+                </>
             )}
         </div>
     );
