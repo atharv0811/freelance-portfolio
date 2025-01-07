@@ -1,12 +1,14 @@
-'use client'
+"use client";
 
-import { Pen, Trash } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Loader2, Trash } from "lucide-react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import TableSkeleton from '@/loaders/table-skeleton';
+import TableSkeleton from "@/loaders/table-skeleton";
 
 interface BlogPost {
+    _id: string;
     title: string;
     isDraft: boolean;
     publishDate: string;
@@ -16,10 +18,11 @@ interface BlogPost {
 const RecentPosts = () => {
     const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const fetchBlogPosts = async () => {
         try {
-            setLoading(true)
+            setLoading(true);
             const response = await axios.get("/api/get-admin-posts");
             setBlogPosts(response.data.data);
             console.log(response.data.data);
@@ -33,6 +36,25 @@ const RecentPosts = () => {
     useEffect(() => {
         fetchBlogPosts();
     }, []);
+
+    const deleteBlogPost = async (id: string) => {
+        setIsDeleting(true)
+
+        try {
+            const response = await axios.delete(`/api/delete-post/${id}`);
+
+            if (response.data.success) {
+                toast.success("Post deleted successfully");
+                fetchBlogPosts();
+            }
+
+        } catch (error) {
+            console.error(error);
+            toast.error("An unexpected error occurred");
+        } finally {
+            setIsDeleting(false)
+        }
+    }
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -80,11 +102,11 @@ const RecentPosts = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span
                                             className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${!post.isDraft
-                                                ? 'bg-green-100 text-green-800'
-                                                : 'bg-yellow-100 text-yellow-800'
+                                                ? "bg-green-100 text-green-800"
+                                                : "bg-yellow-100 text-yellow-800"
                                                 }`}
                                         >
-                                            {post.isDraft ? 'Draft' : 'Published'}
+                                            {post.isDraft ? "Draft" : "Published"}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -94,11 +116,13 @@ const RecentPosts = () => {
                                         {post.views}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
-                                        <Button variant={'outline'} className="text-red-400 hover:bg-red-500 hover:text-white">
-                                            <Trash size={16} />
-                                        </Button>
-                                        <Button variant={'outline'} className="text-green-400 hover:bg-green-500 hover:text-white">
-                                            <Pen size={16} />
+                                        <Button
+                                            variant={"outline"}
+                                            className="text-red-400 hover:bg-red-500 hover:text-white"
+                                            onClick={() => deleteBlogPost(post._id)}
+                                            disabled={isDeleting}
+                                        >
+                                            {isDeleting ? <Loader2 className='animate-spin' /> : <Trash size={16} />}
                                         </Button>
                                     </td>
                                 </tr>
@@ -109,6 +133,6 @@ const RecentPosts = () => {
             </div>
         </div>
     );
-}
+};
 
 export default RecentPosts;
