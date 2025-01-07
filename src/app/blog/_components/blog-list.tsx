@@ -25,6 +25,7 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
     }, []);
 
     const filteredPosts = blogPosts.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (post: any) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             post.author.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -45,6 +46,7 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
                     No posts found matching your search criteria.
                 </p>
             ) : (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 filteredPosts.map((post: any) => (
                     <BlogCard key={post._id} post={post} author={post.author.name} />
                 ))
