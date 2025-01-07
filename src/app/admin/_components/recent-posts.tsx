@@ -1,30 +1,39 @@
-import { MoreVertical } from 'lucide-react';
+'use client'
 
-const recentPosts = [
-    {
-        title: 'Getting Started with React 18',
-        author: 'John Doe',
-        status: 'Published',
-        date: '2024-03-15',
-        views: '1.2K',
-    },
-    {
-        title: 'Understanding TypeScript Generics',
-        author: 'Jane Smith',
-        status: 'Draft',
-        date: '2024-03-14',
-        views: '856',
-    },
-    {
-        title: 'Advanced Tailwind CSS Tips',
-        author: 'Mike Johnson',
-        status: 'Published',
-        date: '2024-03-13',
-        views: '2.1K',
-    },
-];
+import { Pen, Trash } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import axios from "axios";
+import TableSkeleton from '@/loaders/table-skeleton';
+
+interface BlogPost {
+    title: string;
+    isDraft: boolean;
+    publishDate: string;
+    views: string;
+}
 
 const RecentPosts = () => {
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const fetchBlogPosts = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get("/api/get-admin-posts");
+            setBlogPosts(response.data.data);
+            console.log(response.data.data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchBlogPosts();
+    }, []);
+
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="p-6 border-b border-gray-200">
@@ -54,41 +63,48 @@ const RecentPosts = () => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {recentPosts.map((post) => (
-                            <tr key={post.title} className="hover:bg-gray-50">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">
-                                        {post.title}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">{post.author}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.status === 'Published'
-                                            ? 'bg-green-100 text-green-800'
-                                            : 'bg-yellow-100 text-yellow-800'
-                                            }`}
-                                    >
-                                        {post.status}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {post.date}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {post.views}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button className="text-gray-400 hover:text-gray-500">
-                                        <MoreVertical size={16} />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    {loading ? (
+                        <TableSkeleton />
+                    ) : (
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {blogPosts.map((post) => (
+                                <tr key={post.title} className="hover:bg-gray-50">
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm font-medium text-gray-900">
+                                            {post.title}
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-500">Atharv Karnekar</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${!post.isDraft
+                                                ? 'bg-green-100 text-green-800'
+                                                : 'bg-yellow-100 text-yellow-800'
+                                                }`}
+                                        >
+                                            {post.isDraft ? 'Draft' : 'Published'}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {post.publishDate}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {post.views}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
+                                        <Button variant={'outline'} className="text-red-400 hover:bg-red-500 hover:text-white">
+                                            <Trash size={16} />
+                                        </Button>
+                                        <Button variant={'outline'} className="text-green-400 hover:bg-green-500 hover:text-white">
+                                            <Pen size={16} />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    )}
                 </table>
             </div>
         </div>

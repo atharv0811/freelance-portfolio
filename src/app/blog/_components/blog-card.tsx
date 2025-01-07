@@ -2,8 +2,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge'
 import { CalendarIcon, ClockIcon } from 'lucide-react'
 import { FC } from 'react'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 interface BlogPost {
     id: number
@@ -39,7 +39,7 @@ const BlogCard: FC<{ post: BlogPost; author: string }> = ({ post, author }) => {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <p>{post.description}</p>
+                <p className='line-clamp-2'>{post.description}</p>
             </CardContent>
             <CardFooter>
                 <Link href={`/blog/${post.id}`} className="group">

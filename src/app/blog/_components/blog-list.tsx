@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import BlogCard from "./blog-card";
 import axios from "axios";
 import PaginationComponent from "./pagination-component";
+import BlogCardSkeleton from "@/loaders/blog-post-skeleton";
 
 export default function BlogList({ searchQuery }: { searchQuery: string }) {
     const [blogPosts, setBlogPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 5;
 
     const fetchBlogPosts = async () => {
         try {
+            setLoading(true)
             const response = await axios.get("/api/get-posts");
             setBlogPosts(response.data.data);
             console.log(response.data.data);
@@ -48,12 +51,21 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
                 {searchQuery ? `Search Results for "${searchQuery}"` : "Latest Posts"}
             </h2>
             {loading ? (
-                <p className="text-gray-600">Loading posts...</p>
+                <BlogCardSkeleton />
             ) : error ? (
-                <p className="text-red-600">{error}</p>
+                <div className="flex flex-col items-center justify-center space-y-4">
+                    <p className="text-red-600">{error}</p>
+                    <Button
+                        onClick={fetchBlogPosts}
+                        variant='outline'
+                        className="px-4 py-2 text-gray-800 rounded-md"
+                    >
+                        {loading ? "Loading..." : "Retry"}
+                    </Button>
+                </div>
             ) : filteredPosts.length === 0 ? (
                 <p className="text-gray-600">
-                    No posts found matching your search criteria.
+                    No posts found.
                 </p>
             ) : (
                 <>

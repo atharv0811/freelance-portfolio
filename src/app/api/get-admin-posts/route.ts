@@ -7,7 +7,7 @@ export async function GET(req: Request) {
     await dbConnect();
 
     try {
-        const posts = await BlogPosts.find({ isDraft: false }).populate("author", "name");
+        const posts = await BlogPosts.find().populate("author", "name");
 
         if (!posts) {
             return NextResponse.json(
