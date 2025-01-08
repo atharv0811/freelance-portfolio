@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export interface IUser extends Document {
     name: string;
     email: string;
@@ -11,7 +9,6 @@ export interface IBlogPost extends Document {
     description: string;
     content: string;
     keywords: string[];
-    author: Types.ObjectId;
     tags: string[];
     category: string;
     slug: string;

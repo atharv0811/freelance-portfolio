@@ -2,19 +2,23 @@ import dbConnect from "@/lib/dbConnect";
 import BlogPosts from "@/models/blogpost.model";
 import { NextResponse } from "next/server";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(req: Request) {
-    await dbConnect();
+type Params = Promise<{ slug: string }>
+
+export async function GET(req: Request, segmentData: { params: Params }) {
+    dbConnect();
 
     try {
-        const posts = await BlogPosts.find();
+        const params = await segmentData.params;
 
-        if (!posts) {
+        const slug = params.slug;
+
+        const post = await BlogPosts.findOne({ slug });
+
+        if (!post) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "No posts found",
-                    posts: [],
+                    message: "Post not found",
                 },
                 {
                     status: 404
@@ -25,8 +29,8 @@ export async function GET(req: Request) {
         return NextResponse.json(
             {
                 success: true,
-                message: "Posts fetched successfully",
-                data: posts,
+                message: "Post found successfully",
+                data: post
             },
             {
                 status: 200
@@ -38,7 +42,7 @@ export async function GET(req: Request) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "An error occurred while fetching posts",
+                    message: "An error occurred while fetching post",
                     error: error.message
                 },
                 {

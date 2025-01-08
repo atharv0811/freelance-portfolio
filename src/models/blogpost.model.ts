@@ -26,11 +26,6 @@ const blogPostsSchema: Schema<IBlogPost> = new Schema(
                 message: 'At least one keyword is required',
             },
         },
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        },
         tags: {
             type: [String],
             required: [true, 'At least one tag is required'],

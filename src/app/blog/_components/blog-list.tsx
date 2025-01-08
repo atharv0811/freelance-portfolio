@@ -34,7 +34,6 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (post: any) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.author.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             post.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -71,7 +70,7 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
                 <>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {currentPosts.map((post: any) => (
-                        <BlogCard key={post._id} post={post} author={post.author.name} />
+                        <BlogCard key={post._id} post={post} />
                     ))}
                     <div className="mt-6 flex justify-center">
                         <PaginationComponent

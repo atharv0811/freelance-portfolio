@@ -12,9 +12,10 @@ interface BlogPost {
     publishDate: string
     category: string
     readTime: string
+    slug: string
 }
 
-const BlogCard: FC<{ post: BlogPost; author: string }> = ({ post, author }) => {
+const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
     return (
         <Card className="overflow-hidden transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-4">
@@ -31,7 +32,7 @@ const BlogCard: FC<{ post: BlogPost; author: string }> = ({ post, author }) => {
                     {post.title}
                 </CardTitle>
                 <CardDescription className='flex items-center gap-4'>
-                    <p className="text-gray-600">{author}</p>
+                    <p className="text-gray-600">Atharv Karnekar</p>
                     <div className="flex items-center text-sm text-gray-500">
                         <CalendarIcon className="w-4 h-4 mr-1" />
                         <time dateTime={post.publishDate}>Published on {post.publishDate}</time>
@@ -42,7 +43,7 @@ const BlogCard: FC<{ post: BlogPost; author: string }> = ({ post, author }) => {
                 <p className='line-clamp-2'>{post.description}</p>
             </CardContent>
             <CardFooter>
-                <Link href={`/blog/${post.id}`} className="group">
+                <Link href={`/blog/${post.slug}`} className="group">
                     <Button className='group-hover:underline group-hover:bg-[#401585] bg-[#6930c3]'>Read more</Button>
                 </Link>
             </CardFooter>

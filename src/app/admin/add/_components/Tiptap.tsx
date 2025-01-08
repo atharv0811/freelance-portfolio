@@ -275,7 +275,7 @@ const Tiptap: React.FC<TiptapEditorProps> = ({ onChange }) => {
             <div className="border rounded-md py-2 px-3 w-full">
                 <EditorContent
                     editor={editor}
-                    className={`${roboto.className} h-[10rem] max-h-96 overflow-y-scroll no-scrollbar prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl`}
+                    className={`${roboto.className} h-[50rem] max-h-96 overflow-y-scroll no-scrollbar prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl`}
                 />
             </div>
         </div>
