@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import BlogCard from "./blog-card";
@@ -17,7 +19,6 @@ export default function BlogList({ searchQuery }: { searchQuery: string }) {
             setLoading(true)
             const response = await axios.get("/api/get-posts");
             setBlogPosts(response.data.data);
-            console.log(response.data.data);
         } catch (error) {
             console.error(error);
             setError("Failed to fetch blog posts. Please try again later.");

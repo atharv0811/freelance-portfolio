@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 import ConditionalLayout from "@/components/conditional-layout";
 import AuthProvider from "@/context/AuthProvider";
-import { Toaster } from "@/components/ui/sonner";
+import "./globals.css";
 
 const roboto = Roboto({ weight: '700', subsets: ['latin'] })
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       <AuthProvider>
         <body
           className={`${roboto.className}`}
-          data-new-gr-c-s-check-loaded="14.1215.0"
+          data-new-gr-c-s-check-loaded="14.1216.0"
           data-gr-ext-installed=""
         >
           <ConditionalLayout>

@@ -25,7 +25,6 @@ const RecentPosts = () => {
             setLoading(true);
             const response = await axios.get("/api/get-admin-posts");
             setBlogPosts(response.data.data);
-            console.log(response.data.data);
         } catch (error) {
             console.error(error);
         } finally {
