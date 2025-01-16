@@ -1,14 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
-import BlogPostSidebar from "./_components/blogpost-sidebar";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import axios from "axios";
-import parse from "html-react-parser";
+import parse, { domToReact } from "html-react-parser";
 import PostSkeleton from "@/loaders/post-skeleton";
 
 type Params = Promise<{ slug: string }>;
@@ -38,18 +39,45 @@ export default function BlogPost(segmentData: { params: Params }) {
         fetchPost();
     }, []);
 
+    const renderContent = (content: string) => {
+        return parse(content, {
+            replace: (domNode: any) => {
+                if (domNode.name === "pre" && domNode.children?.[0]?.name === "code") {
+                    const codeContent = domToReact(domNode.children[0].children);
+                    const language = domNode.children[0].attribs.class?.replace("language-", "") || "javascript";
+
+                    return (
+                        <SyntaxHighlighter
+                            language={language}
+                            style={okaidia}
+                            showLineNumbers
+                            lineNumberStyle={{
+                                color: "#888",
+                                paddingRight: "10px",
+                                userSelect: "none",
+                            }}
+                            className="rounded-lg p-4"
+                        >
+                            {typeof codeContent === 'string' ? codeContent : codeContent.toString()}
+                        </SyntaxHighlighter>
+                    );
+                }
+            },
+        });
+    };
+
     return (
         <div className="min-h-screen bg-[#f7fbfe]">
-            <div className="max-w-[1200px] mx-auto px-4 py-8">
+            <div className="max-w-[1200px] mx-auto px-4">
                 <div className="flex flex-col lg:flex-row gap-8">
-                    <main className="lg:w-2/3">
+                    <main className="w-full">
                         {loading ? (
                             <PostSkeleton />
                         ) : (
                             <Card className="max-w-[1000px] mx-auto py-8 px-6">
                                 <article className="max-w-2xl mx-auto">
                                     {post && (
-                                        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+                                        <h1 className="text-2xl md:text-4xl font-bold mb-4">{post.title}</h1>
                                     )}
 
                                     <div className="flex items-center justify-between mb-6">
@@ -70,7 +98,7 @@ export default function BlogPost(segmentData: { params: Params }) {
 
                                     {post && (
                                         <div className="prose max-w-none mb-6">
-                                            {parse(post.content)}
+                                            {renderContent(post.content)}
                                         </div>
                                     )}
 
@@ -87,9 +115,6 @@ export default function BlogPost(segmentData: { params: Params }) {
                             </Card>
                         )}
                     </main>
-                    <aside className="lg:w-1/3">
-                        <BlogPostSidebar />
-                    </aside>
                 </div>
             </div>
         </div>
