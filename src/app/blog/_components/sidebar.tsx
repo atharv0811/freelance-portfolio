@@ -4,15 +4,14 @@ import SearchBox from './search-box'
 import FeaturedPosts from './featured-posts'
 import Categories from './categories'
 import Tags from './tags'
+import { usePathname } from 'next/navigation'
 
-interface SidebarProps {
-    onSearch: (query: string) => void
-}
+export default function Sidebar() {
+    const path = usePathname();
 
-export default function Sidebar({ onSearch }: SidebarProps) {
     return (
         <div className="space-y-8">
-            <SearchBox onSearch={onSearch} />
+            {path === "/blog" && <SearchBox />}
             <FeaturedPosts />
             <Categories />
             <Tags />
