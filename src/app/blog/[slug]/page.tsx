@@ -41,6 +41,7 @@ export default function BlogPost(segmentData: { params: Params }) {
 
     const renderContent = (content: string) => {
         return parse(content, {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             replace: (domNode: any) => {
                 if (domNode.name === "pre" && domNode.children?.[0]?.name === "code") {
                     const codeContent = domToReact(domNode.children[0].children);
