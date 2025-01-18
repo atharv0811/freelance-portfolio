@@ -11,24 +11,8 @@ export const metadata: Metadata = {
 
 const Data = [
     {
-        "name": "ReactJS",
-        "icon": "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/000000/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png"
-    },
-    {
-        "name": "ExpressJS",
-        "icon": "https://img.icons8.com/fluency/48/000000/node-js.png"
-    },
-    {
-        "name": "NodeJS",
-        "icon": "https://img.icons8.com/color/48/000000/nodejs.png"
-    },
-    {
-        "name": "Redux",
-        "icon": "https://img.icons8.com/color/48/000000/redux.png"
-    },
-    {
-        "name": "Bootstrap",
-        "icon": "https://img.icons8.com/color/48/000000/bootstrap.png"
+        "name": "HTML",
+        "icon": "https://img.icons8.com/?size=100&id=20909&format=png&color=000000"
     },
     {
         "name": "CSS3",
@@ -39,6 +23,30 @@ const Data = [
         "icon": "https://img.icons8.com/color/48/000000/javascript--v1.png"
     },
     {
+        "name": "Typescript",
+        "icon": "https://img.icons8.com/color/48/000000/typescript.png"
+    },
+    {
+        "name": "ReactJS",
+        "icon": "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/000000/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png"
+    },
+    {
+        "name": "Redux",
+        "icon": "https://img.icons8.com/color/48/000000/redux.png"
+    },
+    {
+        "name": "NextJs",
+        "icon": "https://img.icons8.com/color/48/000000/nextjs.png"
+    },
+    {
+        "name": "NodeJS",
+        "icon": "https://img.icons8.com/color/48/000000/nodejs.png"
+    },
+    {
+        "name": "ExpressJS",
+        "icon": "https://img.icons8.com/color/48/000000/express-js.png"
+    },
+    {
         "name": "MongoDB",
         "icon": "https://img.icons8.com/color/48/000000/mongodb.png"
     },
@@ -47,17 +55,21 @@ const Data = [
         "icon": "https://img.icons8.com/color/48/000000/mysql-logo.png"
     },
     {
-        "name": "Tailwind CSS",
-        "icon": "https://img.icons8.com/color/48/tailwind_css.png"
-    },
-    {
         "name": "Git VCS",
         "icon": "https://img.icons8.com/color/48/000000/git.png"
     },
     {
         "name": "GitHub",
-        "icon": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
-    }
+        "icon": "https://img.icons8.com/?size=100&id=ARy6tFUfwclb&format=png&color=000000"
+    },
+    {
+        "name": "Tailwind CSS",
+        "icon": "https://img.icons8.com/color/48/tailwind_css.png"
+    },
+    {
+        "name": "Bootstrap",
+        "icon": "https://img.icons8.com/color/48/000000/bootstrap.png"
+    },
 ]
 
 const page = () => {
@@ -124,16 +136,16 @@ const page = () => {
                         </div>
                     </div>
 
-                    <div className="bg-[#f1faff] text-white rounded-xl p-6 md:p-8 w-full mx-auto">
+                    <div className="bg-[#f1faff] text-white rounded-xl p-6 md:p-8 w-full mx-auto shadow-lg">
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-7">
                             {Data.map(item => (
                                 <div
-                                    className='p-4 rounded-xl shadow-lg bg-[#0f0a4d] transition duration-200 hover:shadow-[0_8px_10px_rgba(0,2,68,0.8)] hover:bg-[rgba(0,0,0,0.9)]'
+                                    className='p-4 rounded-xl shadow-lg bg-[#f1faff] transition duration-200 hover:shadow-[0_8px_10px_rgba(0,2,68,0.8)] hover:bg-[#c3e8fc]'
                                     key={item.name}
                                 >
                                     <div className='flex flex-col items-center gap-4'>
                                         <Image src={item.icon} alt={item.name} width={50} height={50} />
-                                        <span className='text-sm md:text-base'>{item.name}</span>
+                                        <span className='text-sm md:text-base text-[#6930c3]'>{item.name}</span>
                                     </div>
                                 </div>
                             ))}
